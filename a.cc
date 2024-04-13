@@ -1,81 +1,49 @@
 #include <bits/stdc++.h>
-#include <unordered_map>
-#include <unordered_set>
 #define int long long
 using namespace std;
+const int N = 1e6+10;
+vector<int> primes;
 
-unordered_map<int,int> mp1,mp2;
-void solve() {
-mp1.clear();
-mp2.clear();
-    int n;
-    int k;
-    cin>>n>>k;
-    int a[n],b[n];
-
-    for (int i=0;i<n;i++){
-        cin>>a[i];
-        mp1[a[i]]++;
-    }
-    for (int i=0;i<n;i++){
-        cin>>b[i];
-        mp2[b[i]]++;
-    }
-
-    vector<int> v1,v2;
-    vector<int> o1,o2;
-    for (auto x = mp1.begin(); x != mp1.end(); x++){
-        if (x->second == 2) {
-            v1.push_back(x->first);
-        } else {
-            o1.push_back(x->first);
-        }
-    }
-
-        for (auto x = mp2.begin(); x != mp2.end(); x++){
-        if (x->second == 2) {
-            v2.push_back(x->first);
-        } else {
-            o2.push_back(x->first);
-        }
-    }
-
-    int r = k * 2;
-    unordered_set<int> choose1;
-    unordered_set<int> choose2;
-
-    auto iter = v1.begin();
-    auto iter2 = v2.begin();
-    while (r) {
-        if (iter == v1.end()) {
-            for (int i=0;i<r;i++){
-                choose1.insert(o1[i]);
-                choose2.insert(o1[i]);
+int get_primes(){
+    vector<int> prime(N);
+    prime.clear();
+    prime[1] = 0;
+    for (int i=2;i<N;i++) {
+        if (prime[i] == 0) {
+            primes.push_back(i);
+            for (auto j: primes) {
+                if (i * j > N) break;
+                prime[j * i] = 1;
+                if (i % j == 0) {
+                    break;
+                }
             }
-            break;
         }
-        choose1.insert(*iter);
-        choose2.insert(*iter2);
-        iter++;
-        iter2++;
-        r -= 2;
+        
     }
-    for (int i=0;i<n;i++){
-        if (choose1.find(a[i]) != choose1.end()){
-            cout<<a[i]<<" ";
-        }
+
+}
+void solve() {
+    int a,b,c,d;
+    cin>>a>>b>>c>>d;
+    int a1 = a % 2;
+    int b1 = b % 2;
+    int c1 = c % 2;
+    int d1 = d % 2;
+    int ans = (a / 2) + (b/2) + (c/2) + (d/2);
+    if (a1 == b1 &&  b1 == c1 && c1 == 1) {
+        ans++;
     }
-    cout<<endl;
-    for (int i=0;i<n;i++){
-        if (choose2.find(b[i]) != choose2.end()){
-            cout<<b[i]<<" ";
-        }
-    }
-    cout<<endl;
+    cout<<ans<<endl;
 }
 
 signed main(){
-    int T;
-    cin>>T;
-    while (T--) solve();
+    get_primes();
+    for (int i=0;i<10;i++) {
+        cout<<primes[i]<<endl;
+    }
+
+    // int T;
+    // cin>>T;
+    // while (T--) solve();
 }
