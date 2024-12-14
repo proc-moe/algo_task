@@ -1,11 +1,6 @@
 #include <bits/stdc++.h>
-#define int long long
 using namespace std;
-
-
-
-signed main(){
-
+#define int long long
 const int MAXN = 5e5 + 100;
 struct Edge {
     int next, to;
@@ -36,9 +31,6 @@ void dfs(int u, int from) {
 
 void solve() {
     int n;
-    cin>>n;
-    int a[n];
-    for (int i=0;i<n;i++) cin>>a[i];
     cin >> n;
     int tot = 0;
     now = 1;
